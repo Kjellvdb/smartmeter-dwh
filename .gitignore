@@ -1,0 +1,37 @@
+# secrets
+.env
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# logs and generated files
+logs/*
+
+# Power BI / Office
+*.pbix
+~$*
+
+
+data/distribution/*
+data/P6269_1_50_DMK_Sample_Elek/*
+data/tarrifs/*
+data/input/Bijdragen.csv
+data/input/Energiekosten.csv
+data/input/Distributiekosten.csv
+data/input/aws_station.csv
+
+# course material
+docs/assignment/
+
+# editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

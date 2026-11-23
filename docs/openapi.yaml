@@ -1,0 +1,113 @@
+openapi: 3.0.0
+info:
+  title: Data Engineering Project API
+  description: API voor de DigitalMeterDWH
+  version: 1.0.0
+paths:
+  /UsageAndInjectionPerMonth/{EANID}:
+    get:
+      summary: Retrieve the total usage and injection for a specific user and month.
+      description: Retrieve the total usage and injection for a specific user and month.
+      parameters:
+        - name: EANID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The EANID of the user.
+        - name: YYYYMM
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The month in the format YYYYMM.
+      responses:
+        '200':
+          description: The total usage and injection for the specified month and user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  TotalInjection:
+                    type: number
+                    example: 517.337000
+                  TotalUsage:
+                    type: number
+                    example: 353.441000
+        '400':
+          description:
+            - Parameter 'YYYYMM' is required.
+            - Parameter 'EANID' has to be a valid number.
+        '404':
+          description: No data found.
+  /AverageHoursSunPerDay/{WeatherStationID}:
+    get:
+      summary: Retrieve the average hours of sun per day for a specific weather station over the last month.
+      description: Retrieve the average hours of sun per day for a specific weather station over the last month.
+      parameters:
+        - name: WeatherStationID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the weather station.
+      responses:
+        '200':
+          description: Average hours of sun per day for the specified weather station.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  AverageHoursSunPerDay:
+                    type: number
+                    example: 8.5333333333
+        '400':
+          description: Parameter 'WeatherStationID' has to be a valid number.
+        '404':
+          description: No data found.
+  /UpdateBelpexPrice:
+    put:
+      summary: Update the Belpex price.
+      description: Update the Belpex price.
+      parameters:
+        - name: BelpexValue
+          in: query
+          required: true
+          schema:
+            type: number
+          description: The value of the Belpex price.
+        - name: BelpexType
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The type of the Belpex price.
+        - name: DateKey
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The date in the format YYYYMMDD.
+        - name: FullTime
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The time in the format HH:MM:SS.
+      responses:
+        '200':
+          description: BelpexValue updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: BelpexValue updated successfully.
+        '400':
+          description: Parameters 'BelpexValue', 'BelpexType', 'DateKey' and 'FullTime' are required.
+        '401':
+          description: Invalid or missing API key.
